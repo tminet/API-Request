@@ -1,0 +1,81 @@
+package tmidev.apirequest.presentation.screen_album_photos
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import tmidev.apirequest.databinding.FragmentAlbumPhotosBinding
+
+@AndroidEntryPoint
+class AlbumPhotosFragment : Fragment() {
+    private var _binding: FragmentAlbumPhotosBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: AlbumPhotosViewModel by viewModels()
+    private val albumPhotosAdapter = AlbumPhotosAdapter()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ) = FragmentAlbumPhotosBinding.inflate(
+        inflater, container, false
+    ).apply {
+        _binding = this
+    }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupAdapter()
+        observeViewModel()
+
+        binding.buttonRetry.setOnClickListener {
+            viewModel.reloadAlbumPhotos()
+        }
+    }
+
+    private fun setupAdapter() {
+        val flexboxLayoutManager = FlexboxLayoutManager(context).apply {
+            flexDirection = FlexDirection.ROW
+            justifyContent = JustifyContent.SPACE_EVENLY
+        }
+
+        binding.recyclerViewAlbumPhotos.apply {
+            setHasFixedSize(true)
+            layoutManager = flexboxLayoutManager
+            adapter = albumPhotosAdapter
+        }
+    }
+
+    private fun observeViewModel() = lifecycleScope.launch {
+        viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewModel.uiState.collectLatest { uiState ->
+                when (uiState) {
+                    is AlbumPhotosUiState.Loading -> binding.root.displayedChild = FLIPPER_LOADING
+                    is AlbumPhotosUiState.Success -> {
+                        albumPhotosAdapter.submitList(uiState.photos)
+                        binding.root.displayedChild = FLIPPER_SUCCESS
+                    }
+                    is AlbumPhotosUiState.Error -> binding.apply {
+                        textViewError.text = getString(uiState.message)
+                        binding.root.displayedChild = FLIPPER_ERROR
+                    }
+                }
+            }
+        }
+    }
+
+    companion object {
+        private const val FLIPPER_LOADING = 0
+        private const val FLIPPER_SUCCESS = 1
+        private const val FLIPPER_ERROR = 2
+    }
+}

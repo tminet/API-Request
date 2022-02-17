@@ -1,0 +1,76 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'org.jetbrains.kotlin.plugin.serialization'
+}
+
+android {
+    compileSdk 31
+
+    defaultConfig {
+        applicationId "tmidev.apirequest"
+        minSdk 21
+        targetSdk 31
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            debuggable true
+        }
+
+        release {
+            minifyEnabled true
+            shrinkResources true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_ver"
+
+    implementation "com.google.dagger:hilt-android:$hilt_ver"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_ver"
+
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_ver"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_ver"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_ver"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_ver"
+
+    implementation "io.ktor:ktor-client-android:$ktor_ver"
+    implementation "io.ktor:ktor-client-serialization:$ktor_ver"
+
+    implementation 'io.coil-kt:coil:1.4.0'
+
+}

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/usersFragment">
+
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="tmidev.apirequest.presentation.screen_users.UsersFragment"
+        android:label="@string/screenTitleUsers"
+        tools:layout="@layout/fragment_users">
+        <action
+            android:id="@+id/toUserPostsFragment"
+            app:destination="@id/userPostsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+
+        <action
+            android:id="@+id/toUserAlbumsFragment"
+            app:destination="@id/userAlbumsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/userPostsFragment"
+        android:name="tmidev.apirequest.presentation.screen_user_posts.UserPostsFragment"
+        android:label="@string/screenTitleUserPosts"
+        tools:layout="@layout/fragment_user_posts">
+        <argument
+            android:name="userId"
+            app:argType="integer"
+            app:nullable="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/userAlbumsFragment"
+        android:name="tmidev.apirequest.presentation.screen_user_albums.UserAlbumsFragment"
+        android:label="@string/screenTitleUserAlbums"
+        tools:layout="@layout/fragment_user_albums">
+        <argument
+            android:name="userId"
+            app:argType="integer"
+            app:nullable="false" />
+
+        <action
+            android:id="@+id/toAlbumPhotosFragment"
+            app:destination="@id/albumPhotosFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/albumPhotosFragment"
+        android:name="tmidev.apirequest.presentation.screen_album_photos.AlbumPhotosFragment"
+        android:label="@string/screenTitleAlbumPhotos"
+        tools:layout="@layout/fragment_album_photos">
+        <argument
+            android:name="albumId"
+            app:argType="integer"
+            app:nullable="false" />
+    </fragment>
+
+</navigation>
