@@ -12,14 +12,14 @@ data class UserResponseGson(
     val username: String,
     @SerializedName("email")
     val email: String,
-    @SerializedName("address")
-    val address: AddressResponse,
     @SerializedName("phone")
     val phone: String,
     @SerializedName("website")
-    val website: String
+    val website: String,
+    @SerializedName("address")
+    val address: AddressResponseGson,
 ) {
-    data class AddressResponse(
+    data class AddressResponseGson(
         @SerializedName("street")
         val street: String,
         @SerializedName("suite")
@@ -40,8 +40,8 @@ data class UserResponseGson(
         id = id,
         name = name,
         email = email,
-        address = address.toAddress(),
         phone = phone,
-        website = website
+        website = website,
+        address = address.toAddress()
     )
 }
