@@ -9,12 +9,12 @@ data class UserResponseKt(
     val name: String,
     val username: String,
     val email: String,
-    val address: AddressResponse,
     val phone: String,
-    val website: String
+    val website: String,
+    val address: AddressResponseKt
 ) {
     @Serializable
-    data class AddressResponse(
+    data class AddressResponseKt(
         val street: String,
         val suite: String,
         val city: String,
@@ -31,8 +31,8 @@ data class UserResponseKt(
         id = id,
         name = name,
         email = email,
-        address = address.toAddress(),
         phone = phone,
-        website = website
+        website = website,
+        address = address.toAddress()
     )
 }
