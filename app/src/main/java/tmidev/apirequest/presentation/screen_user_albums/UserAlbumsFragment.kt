@@ -73,6 +73,11 @@ class UserAlbumsFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     companion object {
         private const val FLIPPER_LOADING = 0
         private const val FLIPPER_SUCCESS = 1
