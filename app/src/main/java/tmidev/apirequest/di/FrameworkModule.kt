@@ -21,7 +21,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object FrameworkModule {
-    private const val TIMEOUT_MILLISECONDS = 2000L
+    private const val TIMEOUT_MILLISECONDS = 10000L
 
     @Provides
     @Singleton
