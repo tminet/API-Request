@@ -20,7 +20,7 @@ class UsersFragment : Fragment() {
     private var _binding: FragmentUsersBinding? = null
     private val binding get() = _binding!!
     private val viewModel: UsersViewModel by viewModels()
-    private val usersAdapter = UsersAdapter()
+    private lateinit var usersAdapter: UsersAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -42,16 +42,16 @@ class UsersFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        usersAdapter.apply {
+        usersAdapter = UsersAdapter(
             userPostsClick = { userId ->
                 val directions = UsersFragmentDirections.toUserPostsFragment(userId = userId)
                 findNavController().navigate(directions = directions)
-            }
+            },
             userAlbumsClick = { userId ->
                 val directions = UsersFragmentDirections.toUserAlbumsFragment(userId = userId)
                 findNavController().navigate(directions = directions)
             }
-        }
+        )
 
         binding.recyclerViewUsers.apply {
             setHasFixedSize(true)

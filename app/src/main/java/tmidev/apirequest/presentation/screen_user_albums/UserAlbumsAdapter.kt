@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.ListAdapter
 import tmidev.apirequest.domain.model.Album
 import tmidev.apirequest.util.AlbumClick
 
-class UserAlbumsAdapter : ListAdapter<Album, UserAlbumsViewHolder>(diffCallback) {
-    var albumClick: AlbumClick? = null
+class UserAlbumsAdapter(
+    private val albumClick: AlbumClick
+) : ListAdapter<Album, UserAlbumsViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         UserAlbumsViewHolder.create(

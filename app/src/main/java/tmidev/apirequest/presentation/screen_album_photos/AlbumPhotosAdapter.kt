@@ -4,10 +4,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import tmidev.apirequest.domain.model.Photo
+import tmidev.apirequest.util.ImageLoader
 
-class AlbumPhotosAdapter : ListAdapter<Photo, AlbumPhotosViewHolder>(diffCallback) {
+class AlbumPhotosAdapter(
+    private val imageLoader: ImageLoader
+) : ListAdapter<Photo, AlbumPhotosViewHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        AlbumPhotosViewHolder.create(parent = parent)
+        AlbumPhotosViewHolder.create(parent = parent, imageLoader = imageLoader)
 
     override fun onBindViewHolder(holder: AlbumPhotosViewHolder, position: Int) =
         holder.bind(getItem(position))

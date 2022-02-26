@@ -11,8 +11,8 @@ import tmidev.apirequest.util.UserPostsClick
 
 class UsersViewHolder(
     private val binding: ItemUserBinding,
-    private val userPostsClick: UserPostsClick?,
-    private val userAlbumsClick: UserAlbumsClick?,
+    private val userPostsClick: UserPostsClick,
+    private val userAlbumsClick: UserAlbumsClick,
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(user: User) = binding.run {
         textViewUserId.text = itemView.resources.getString(
@@ -46,19 +46,19 @@ class UsersViewHolder(
         )
 
         buttonUserPosts.setOnClickListener {
-            userPostsClick?.invoke(user.id)
+            userPostsClick.invoke(user.id)
         }
 
         buttonUserAlbums.setOnClickListener {
-            userAlbumsClick?.invoke(user.id)
+            userAlbumsClick.invoke(user.id)
         }
     }
 
     companion object {
         fun create(
             parent: ViewGroup,
-            userPostsClick: UserPostsClick?,
-            userAlbumsClick: UserAlbumsClick?
+            userPostsClick: UserPostsClick,
+            userAlbumsClick: UserAlbumsClick
         ): UsersViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val itemBinding = ItemUserBinding.inflate(inflater, parent, false)

@@ -20,7 +20,7 @@ class UserAlbumsFragment : Fragment() {
     private var _binding: FragmentUserAlbumsBinding? = null
     private val binding get() = _binding!!
     private val viewModel: UserAlbumsViewModel by viewModels()
-    private val userAlbumsAdapter = UserAlbumsAdapter()
+    private lateinit var userAlbumsAdapter: UserAlbumsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -41,12 +41,9 @@ class UserAlbumsFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        userAlbumsAdapter.apply {
-            albumClick = { albumId ->
-                val directions =
-                    UserAlbumsFragmentDirections.toAlbumPhotosFragment(albumId = albumId)
-                findNavController().navigate(directions = directions)
-            }
+        userAlbumsAdapter = UserAlbumsAdapter { albumId ->
+            val directions = UserAlbumsFragmentDirections.toAlbumPhotosFragment(albumId = albumId)
+            findNavController().navigate(directions = directions)
         }
 
         binding.recyclerViewUserAlbums.apply {

@@ -7,9 +7,10 @@ import tmidev.apirequest.domain.model.User
 import tmidev.apirequest.util.UserAlbumsClick
 import tmidev.apirequest.util.UserPostsClick
 
-class UsersAdapter : ListAdapter<User, UsersViewHolder>(diffCallback) {
-    var userPostsClick: UserPostsClick? = null
-    var userAlbumsClick: UserAlbumsClick? = null
+class UsersAdapter(
+    private val userPostsClick: UserPostsClick,
+    private val userAlbumsClick: UserAlbumsClick
+) : ListAdapter<User, UsersViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         UsersViewHolder.create(
