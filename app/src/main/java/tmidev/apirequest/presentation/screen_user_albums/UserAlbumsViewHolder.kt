@@ -10,7 +10,7 @@ import tmidev.apirequest.util.AlbumClick
 
 class UserAlbumsViewHolder(
     private val binding: ItemUserAlbumBinding,
-    private val albumClick: AlbumClick?,
+    private val albumClick: AlbumClick,
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(album: Album) = binding.run {
         textViewUserId.text = itemView.resources.getString(
@@ -23,15 +23,15 @@ class UserAlbumsViewHolder(
 
         textViewAlbumTitle.text = album.title
 
-        binding.root.setOnClickListener {
-            albumClick?.invoke(album.id)
+        root.setOnClickListener {
+            albumClick.invoke(album.id)
         }
     }
 
     companion object {
         fun create(
             parent: ViewGroup,
-            albumClick: AlbumClick?,
+            albumClick: AlbumClick,
         ): UserAlbumsViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val itemBinding = ItemUserAlbumBinding.inflate(inflater, parent, false)

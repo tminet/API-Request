@@ -16,13 +16,18 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import tmidev.apirequest.databinding.FragmentAlbumPhotosBinding
+import tmidev.apirequest.util.ImageLoader
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AlbumPhotosFragment : Fragment() {
     private var _binding: FragmentAlbumPhotosBinding? = null
     private val binding get() = _binding!!
     private val viewModel: AlbumPhotosViewModel by viewModels()
-    private val albumPhotosAdapter = AlbumPhotosAdapter()
+    private lateinit var albumPhotosAdapter: AlbumPhotosAdapter
+
+    @Inject
+    lateinit var imageLoader: ImageLoader
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -43,6 +48,8 @@ class AlbumPhotosFragment : Fragment() {
     }
 
     private fun setupAdapter() {
+        albumPhotosAdapter = AlbumPhotosAdapter(imageLoader = imageLoader)
+
         val flexboxLayoutManager = FlexboxLayoutManager(context).apply {
             flexDirection = FlexDirection.ROW
             justifyContent = JustifyContent.SPACE_EVENLY

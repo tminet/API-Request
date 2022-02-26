@@ -19,7 +19,7 @@ class UserPostsFragment : Fragment() {
     private var _binding: FragmentUserPostsBinding? = null
     private val binding get() = _binding!!
     private val viewModel: UserPostsViewModel by viewModels()
-    private val userPostsAdapter = UserPostsAdapter()
+    private lateinit var userPostsAdapter: UserPostsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -40,6 +40,8 @@ class UserPostsFragment : Fragment() {
     }
 
     private fun setupAdapter() {
+        userPostsAdapter = UserPostsAdapter()
+
         binding.recyclerViewUserPosts.apply {
             setHasFixedSize(true)
             adapter = userPostsAdapter
