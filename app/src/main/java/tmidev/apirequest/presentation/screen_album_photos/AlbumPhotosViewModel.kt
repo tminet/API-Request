@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -43,5 +44,9 @@ class AlbumPhotosViewModel @Inject constructor(
         }
     }
 
-    fun reloadAlbumPhotos() = getAlbumPhotos()
+    fun reloadAlbumPhotos() = viewModelScope.launch {
+        _uiState.value = AlbumPhotosUiState.Loading
+        delay(timeMillis = 1000L)
+        getAlbumPhotos()
+    }
 }
