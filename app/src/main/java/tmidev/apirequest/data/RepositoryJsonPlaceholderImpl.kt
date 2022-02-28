@@ -3,6 +3,8 @@ package tmidev.apirequest.data
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import tmidev.apirequest.data.remote.DataSourceRemote
+import tmidev.apirequest.di.KtorImplementation
+import tmidev.apirequest.di.RetrofitImplementation
 import tmidev.apirequest.domain.model.Album
 import tmidev.apirequest.domain.model.Photo
 import tmidev.apirequest.domain.model.Post
@@ -11,7 +13,8 @@ import tmidev.apirequest.domain.type.ResultType
 import javax.inject.Inject
 
 class RepositoryJsonPlaceholderImpl @Inject constructor(
-    private val dataSourceRemote: DataSourceRemote
+//    @RetrofitImplementation private val dataSourceRemote: DataSourceRemote
+    @KtorImplementation private val dataSourceRemote: DataSourceRemote
 ) : RepositoryJsonPlaceholder {
     override fun getUsers(): Flow<ResultType<List<User>>> = flow {
         emit(value = ResultType.Loading)

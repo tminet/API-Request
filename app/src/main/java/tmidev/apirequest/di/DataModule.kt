@@ -16,8 +16,15 @@ import javax.inject.Singleton
 interface DataModule {
     @Binds
     @Singleton
-    fun bindDataSourceRemote(
-//        dataSource: DataSourceRemoteImplRetrofit
+    @RetrofitImplementation
+    fun bindDataSourceRemoteRetrofit(
+        dataSource: DataSourceRemoteImplRetrofit
+    ): DataSourceRemote
+
+    @Binds
+    @Singleton
+    @KtorImplementation
+    fun bindDataSourceRemoteKtor(
         dataSource: DataSourceRemoteImplKtor
     ): DataSourceRemote
 

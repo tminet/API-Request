@@ -5,7 +5,7 @@ API used in this project is [JSON Placeholder](https://jsonplaceholder.typicode.
 
 ### Switching between Retrofit and Ktor:
 
-Modify the [DataModule.kt](https://github.com/tminet/API-Request/blob/master/app/src/main/java/tmidev/apirequest/di/DataModule.kt) to <b>switch</b> between Retrofit and Ktor.
+Change the qualifier in [RepositoryJsonPlaceholderImpl.kt](https://github.com/tminet/API-Request/blob/master/app/src/main/java/tmidev/apirequest/data/RepositoryJsonPlaceholderImpl.kt) to <b>switch</b> between Retrofit and Ktor.
 
 ### Current features:
 
