@@ -15,3 +15,5 @@ Change the qualifier in [RepositoryJsonPlaceholderImpl.kt](https://github.com/tm
 - `Navigation Component`
 - `Retrofit` with `Gson`
 - `Ktor` with `Kotlin Serialization`
+
+Download available on [Play Store](https://play.google.com/store/apps/details?id=tmidev.apirequest).
