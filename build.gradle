@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        kotlin_ver = '1.6.10'
+        kotlin_ver = '1.6.20'
         coroutines_ver = '1.6.0'
         hilt_ver = '2.41'
         navigation_ver = '2.4.1'
