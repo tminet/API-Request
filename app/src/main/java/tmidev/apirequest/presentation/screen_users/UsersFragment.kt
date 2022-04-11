@@ -20,7 +20,19 @@ class UsersFragment : Fragment() {
     private var _binding: FragmentUsersBinding? = null
     private val binding get() = _binding!!
     private val viewModel: UsersViewModel by viewModels()
-    private lateinit var usersAdapter: UsersAdapter
+
+    private val usersAdapter: UsersAdapter by lazy {
+        UsersAdapter(
+            userPostsClick = { userId ->
+                val directions = UsersFragmentDirections.toUserPostsFragment(userId = userId)
+                findNavController().navigate(directions = directions)
+            },
+            userAlbumsClick = { userId ->
+                val directions = UsersFragmentDirections.toUserAlbumsFragment(userId = userId)
+                findNavController().navigate(directions = directions)
+            }
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -32,31 +44,14 @@ class UsersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupAdapter()
+        setupRecyclerView()
         observeViewModel()
-
-        binding.root.setOnRefreshListener {
-            binding.root.isRefreshing = true
-            viewModel.reloadUsers()
-        }
+        setupSwipeRefreshListener()
     }
 
-    private fun setupAdapter() {
-        usersAdapter = UsersAdapter(
-            userPostsClick = { userId ->
-                val directions = UsersFragmentDirections.toUserPostsFragment(userId = userId)
-                findNavController().navigate(directions = directions)
-            },
-            userAlbumsClick = { userId ->
-                val directions = UsersFragmentDirections.toUserAlbumsFragment(userId = userId)
-                findNavController().navigate(directions = directions)
-            }
-        )
-
-        binding.recyclerViewUsers.apply {
-            setHasFixedSize(true)
-            adapter = usersAdapter
-        }
+    private fun setupRecyclerView() = binding.recyclerViewUsers.run {
+        setHasFixedSize(true)
+        adapter = usersAdapter
     }
 
     private fun observeViewModel() = lifecycleScope.launch {
@@ -76,6 +71,13 @@ class UsersFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun setupSwipeRefreshListener() = binding.root.run {
+        setOnRefreshListener {
+            isRefreshing = true
+            viewModel.reloadUsers()
         }
     }
 

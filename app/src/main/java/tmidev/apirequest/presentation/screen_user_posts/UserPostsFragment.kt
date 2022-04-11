@@ -19,7 +19,10 @@ class UserPostsFragment : Fragment() {
     private var _binding: FragmentUserPostsBinding? = null
     private val binding get() = _binding!!
     private val viewModel: UserPostsViewModel by viewModels()
-    private lateinit var userPostsAdapter: UserPostsAdapter
+
+    private val userPostsAdapter: UserPostsAdapter by lazy {
+        UserPostsAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -31,21 +34,14 @@ class UserPostsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupAdapter()
+        setupRecyclerView()
         observeViewModel()
-
-        binding.buttonRetry.setOnClickListener {
-            viewModel.reloadUserPosts()
-        }
+        setupReloadListener()
     }
 
-    private fun setupAdapter() {
-        userPostsAdapter = UserPostsAdapter()
-
-        binding.recyclerViewUserPosts.apply {
-            setHasFixedSize(true)
-            adapter = userPostsAdapter
-        }
+    private fun setupRecyclerView() = binding.recyclerViewUserPosts.run {
+        setHasFixedSize(true)
+        adapter = userPostsAdapter
     }
 
     private fun observeViewModel() = lifecycleScope.launch {
@@ -63,6 +59,12 @@ class UserPostsFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun setupReloadListener() = binding.buttonRetry.run {
+        setOnClickListener {
+            viewModel.reloadUserPosts()
         }
     }
 

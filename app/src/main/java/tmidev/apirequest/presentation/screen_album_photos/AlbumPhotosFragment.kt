@@ -24,10 +24,13 @@ class AlbumPhotosFragment : Fragment() {
     private var _binding: FragmentAlbumPhotosBinding? = null
     private val binding get() = _binding!!
     private val viewModel: AlbumPhotosViewModel by viewModels()
-    private lateinit var albumPhotosAdapter: AlbumPhotosAdapter
 
     @Inject
     lateinit var imageLoader: ImageLoader
+
+    private val albumPhotosAdapter: AlbumPhotosAdapter by lazy {
+        AlbumPhotosAdapter(imageLoader = imageLoader)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -39,23 +42,18 @@ class AlbumPhotosFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupAdapter()
+        setupRecyclerView()
         observeViewModel()
-
-        binding.buttonRetry.setOnClickListener {
-            viewModel.reloadAlbumPhotos()
-        }
+        setupReloadListener()
     }
 
-    private fun setupAdapter() {
-        albumPhotosAdapter = AlbumPhotosAdapter(imageLoader = imageLoader)
-
+    private fun setupRecyclerView() {
         val flexboxLayoutManager = FlexboxLayoutManager(context).apply {
             flexDirection = FlexDirection.ROW
             justifyContent = JustifyContent.SPACE_EVENLY
         }
 
-        binding.recyclerViewAlbumPhotos.apply {
+        binding.recyclerViewAlbumPhotos.run {
             setHasFixedSize(true)
             layoutManager = flexboxLayoutManager
             adapter = albumPhotosAdapter
@@ -77,6 +75,12 @@ class AlbumPhotosFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun setupReloadListener() = binding.buttonRetry.run {
+        setOnClickListener {
+            viewModel.reloadAlbumPhotos()
         }
     }
 

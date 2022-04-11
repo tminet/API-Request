@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import tmidev.apirequest.R
 import tmidev.apirequest.databinding.ActivityMainBinding
@@ -29,6 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
-        NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration)
+        setupWithNavController(binding.toolbar, navController, appBarConfiguration)
     }
 }

@@ -20,7 +20,13 @@ class UserAlbumsFragment : Fragment() {
     private var _binding: FragmentUserAlbumsBinding? = null
     private val binding get() = _binding!!
     private val viewModel: UserAlbumsViewModel by viewModels()
-    private lateinit var userAlbumsAdapter: UserAlbumsAdapter
+
+    private val userAlbumsAdapter: UserAlbumsAdapter by lazy {
+        UserAlbumsAdapter { albumId ->
+            val directions = UserAlbumsFragmentDirections.toAlbumPhotosFragment(albumId = albumId)
+            findNavController().navigate(directions = directions)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -32,24 +38,14 @@ class UserAlbumsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupAdapter()
+        setupRecyclerView()
         observeViewModel()
-
-        binding.buttonRetry.setOnClickListener {
-            viewModel.reloadUserAlbums()
-        }
+        setupReloadListener()
     }
 
-    private fun setupAdapter() {
-        userAlbumsAdapter = UserAlbumsAdapter { albumId ->
-            val directions = UserAlbumsFragmentDirections.toAlbumPhotosFragment(albumId = albumId)
-            findNavController().navigate(directions = directions)
-        }
-
-        binding.recyclerViewUserAlbums.apply {
-            setHasFixedSize(true)
-            adapter = userAlbumsAdapter
-        }
+    private fun setupRecyclerView() = binding.recyclerViewUserAlbums.run {
+        setHasFixedSize(true)
+        adapter = userAlbumsAdapter
     }
 
     private fun observeViewModel() = lifecycleScope.launch {
@@ -67,6 +63,12 @@ class UserAlbumsFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun setupReloadListener() = binding.buttonRetry.run {
+        setOnClickListener {
+            viewModel.reloadUserAlbums()
         }
     }
 
