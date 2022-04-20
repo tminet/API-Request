@@ -2,9 +2,9 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'org.jetbrains.kotlin.kapt'
+    id 'org.jetbrains.kotlin.plugin.serialization'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
-    id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
 android {
@@ -69,7 +69,8 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_ver"
 
     implementation "io.ktor:ktor-client-android:$ktor_ver"
-    implementation "io.ktor:ktor-client-serialization:$ktor_ver"
+    implementation "io.ktor:ktor-client-content-negotiation:$ktor_ver"
+    implementation "io.ktor:ktor-serialization-kotlinx-json:$ktor_ver"
 
     implementation 'io.coil-kt:coil:1.4.0'
 

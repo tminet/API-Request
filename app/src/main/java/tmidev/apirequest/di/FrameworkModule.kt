@@ -6,9 +6,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
-import io.ktor.client.features.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
+import io.ktor.client.plugins.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -49,18 +50,11 @@ object FrameworkModule {
 
     @Provides
     @Singleton
-    fun provideKotlinSerializer(): KotlinxSerializer =
-        KotlinxSerializer(kotlinx.serialization.json.Json {
-            ignoreUnknownKeys = true
-        })
-
-    @Provides
-    @Singleton
-    fun provideHttpClient(
-        jsonSerializer: KotlinxSerializer
-    ): HttpClient = HttpClient(Android) {
-        install(JsonFeature) {
-            serializer = jsonSerializer
+    fun provideHttpClient(): HttpClient = HttpClient(Android) {
+        install(ContentNegotiation) {
+            json(Json {
+                ignoreUnknownKeys = true
+            })
         }
         install(HttpTimeout) {
             requestTimeoutMillis = TIMEOUT_MILLISECONDS
