@@ -50,13 +50,13 @@ object FrameworkModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient(): HttpClient = HttpClient(Android) {
-        install(ContentNegotiation) {
-            json(Json {
+    fun provideHttpClient(): HttpClient = HttpClient(engineFactory = Android) {
+        install(plugin = ContentNegotiation) {
+            json(json = Json {
                 ignoreUnknownKeys = true
             })
         }
-        install(HttpTimeout) {
+        install(plugin = HttpTimeout) {
             requestTimeoutMillis = TIMEOUT_MILLISECONDS
             connectTimeoutMillis = TIMEOUT_MILLISECONDS
             socketTimeoutMillis = TIMEOUT_MILLISECONDS
