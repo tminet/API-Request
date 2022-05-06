@@ -11,8 +11,8 @@
         android:label="@string/screenTitleUsers"
         tools:layout="@layout/fragment_users">
         <action
-            android:id="@+id/toUserPostsFragment"
-            app:destination="@id/userPostsFragment"
+            android:id="@+id/toPostsFragment"
+            app:destination="@id/postsFragment"
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left"
             app:launchSingleTop="true"
@@ -20,8 +20,8 @@
             app:popExitAnim="@anim/to_right" />
 
         <action
-            android:id="@+id/toUserAlbumsFragment"
-            app:destination="@id/userAlbumsFragment"
+            android:id="@+id/toAlbumsFragment"
+            app:destination="@id/albumsFragment"
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left"
             app:launchSingleTop="true"
@@ -30,10 +30,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/userPostsFragment"
-        android:name="tmidev.apirequest.presentation.screen_user_posts.UserPostsFragment"
-        android:label="@string/screenTitleUserPosts"
-        tools:layout="@layout/fragment_user_posts">
+        android:id="@+id/postsFragment"
+        android:name="tmidev.apirequest.presentation.screen_user_posts.PostsFragment"
+        android:label="@string/screenTitlePosts"
+        tools:layout="@layout/fragment_posts">
         <argument
             android:name="userId"
             app:argType="integer"
@@ -41,18 +41,18 @@
     </fragment>
 
     <fragment
-        android:id="@+id/userAlbumsFragment"
-        android:name="tmidev.apirequest.presentation.screen_user_albums.UserAlbumsFragment"
-        android:label="@string/screenTitleUserAlbums"
-        tools:layout="@layout/fragment_user_albums">
+        android:id="@+id/albumsFragment"
+        android:name="tmidev.apirequest.presentation.screen_user_albums.AlbumsFragment"
+        android:label="@string/screenTitleAlbums"
+        tools:layout="@layout/fragment_albums">
         <argument
             android:name="userId"
             app:argType="integer"
             app:nullable="false" />
 
         <action
-            android:id="@+id/toAlbumPhotosFragment"
-            app:destination="@id/albumPhotosFragment"
+            android:id="@+id/toPhotosFragment"
+            app:destination="@id/photosFragment"
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left"
             app:launchSingleTop="true"
@@ -61,10 +61,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/albumPhotosFragment"
-        android:name="tmidev.apirequest.presentation.screen_album_photos.AlbumPhotosFragment"
-        android:label="@string/screenTitleAlbumPhotos"
-        tools:layout="@layout/fragment_album_photos">
+        android:id="@+id/photosFragment"
+        android:name="tmidev.apirequest.presentation.screen_album_photos.PhotosFragment"
+        android:label="@string/screenTitlePhotos"
+        tools:layout="@layout/fragment_photos">
         <argument
             android:name="albumId"
             app:argType="integer"

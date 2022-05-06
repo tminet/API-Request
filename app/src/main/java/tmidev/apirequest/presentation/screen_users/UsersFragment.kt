@@ -10,10 +10,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import tmidev.apirequest.databinding.FragmentUsersBinding
+import tmidev.apirequest.presentation.common.genericAdapterOf
 
 @AndroidEntryPoint
 class UsersFragment : Fragment() {
@@ -21,17 +23,20 @@ class UsersFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: UsersViewModel by viewModels()
 
-    private val usersAdapter: UsersAdapter by lazy {
-        UsersAdapter(
-            userPostsClick = { userId ->
-                val directions = UsersFragmentDirections.toUserPostsFragment(userId = userId)
-                findNavController().navigate(directions = directions)
-            },
-            userAlbumsClick = { userId ->
-                val directions = UsersFragmentDirections.toUserAlbumsFragment(userId = userId)
-                findNavController().navigate(directions = directions)
-            }
-        )
+    private val usersAdapter: ListAdapter<UserItem, UsersViewHolder> by lazy {
+        genericAdapterOf {
+            UsersViewHolder.create(
+                parent = it,
+                userPostsClick = { userId ->
+                    val directions = UsersFragmentDirections.toPostsFragment(userId = userId)
+                    findNavController().navigate(directions = directions)
+                },
+                userAlbumsClick = { userId ->
+                    val directions = UsersFragmentDirections.toAlbumsFragment(userId = userId)
+                    findNavController().navigate(directions = directions)
+                }
+            )
+        }
     }
 
     override fun onCreateView(
@@ -64,7 +69,7 @@ class UsersFragment : Fragment() {
                         usersAdapter.submitList(uiState.users)
                         binding.viewFlipperData.displayedChild = FLIPPER_SUCCESS
                     }
-                    is UsersUiState.Error -> binding.apply {
+                    is UsersUiState.Error -> binding.run {
                         root.isRefreshing = false
                         textViewError.text = getString(uiState.message)
                         viewFlipperData.displayedChild = FLIPPER_ERROR

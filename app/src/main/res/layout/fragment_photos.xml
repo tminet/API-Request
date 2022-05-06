@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.screen_album_photos.AlbumPhotosFragment">
+    tools:context=".presentation.screen_album_photos.PhotosFragment">
 
     <ProgressBar
         android:layout_width="wrap_content"
@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:requiresFadingEdge="vertical"
-        tools:listitem="@layout/item_album_photo" />
+        tools:listitem="@layout/item_photo" />
 
     <LinearLayout
         android:layout_width="match_parent"

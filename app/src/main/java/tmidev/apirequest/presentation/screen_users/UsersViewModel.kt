@@ -28,7 +28,7 @@ class UsersViewModel @Inject constructor(
             _uiState.value = when (resultType) {
                 is ResultType.Loading -> UsersUiState.Loading
                 is ResultType.Success -> UsersUiState.Success(
-                    users = resultType.data
+                    users = resultType.data.toUsersItem()
                 )
                 is ResultType.Error -> UsersUiState.Error(
                     message = R.string.somethingWentWrong

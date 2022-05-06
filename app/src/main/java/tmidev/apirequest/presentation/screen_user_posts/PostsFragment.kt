@@ -1,4 +1,4 @@
-package tmidev.apirequest.presentation.screen_album_photos
+package tmidev.apirequest.presentation.screen_user_posts
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,32 +9,28 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.android.flexbox.JustifyContent
+import androidx.recyclerview.widget.ListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import tmidev.apirequest.databinding.FragmentAlbumPhotosBinding
-import tmidev.apirequest.util.ImageLoader
-import javax.inject.Inject
+import tmidev.apirequest.databinding.FragmentPostsBinding
+import tmidev.apirequest.presentation.common.genericAdapterOf
 
 @AndroidEntryPoint
-class AlbumPhotosFragment : Fragment() {
-    private var _binding: FragmentAlbumPhotosBinding? = null
+class PostsFragment : Fragment() {
+    private var _binding: FragmentPostsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: AlbumPhotosViewModel by viewModels()
+    private val viewModel: PostsViewModel by viewModels()
 
-    @Inject
-    lateinit var imageLoader: ImageLoader
-
-    private val albumPhotosAdapter: AlbumPhotosAdapter by lazy {
-        AlbumPhotosAdapter(imageLoader = imageLoader)
+    private val postsAdapter: ListAdapter<PostItem, PostsViewHolder> by lazy {
+        genericAdapterOf {
+            PostsViewHolder.create(parent = it)
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ) = FragmentAlbumPhotosBinding.inflate(
+    ) = FragmentPostsBinding.inflate(
         inflater, container, false
     ).apply {
         _binding = this
@@ -47,29 +43,21 @@ class AlbumPhotosFragment : Fragment() {
         setupReloadListener()
     }
 
-    private fun setupRecyclerView() {
-        val flexboxLayoutManager = FlexboxLayoutManager(context).apply {
-            flexDirection = FlexDirection.ROW
-            justifyContent = JustifyContent.SPACE_EVENLY
-        }
-
-        binding.recyclerViewAlbumPhotos.run {
-            setHasFixedSize(true)
-            layoutManager = flexboxLayoutManager
-            adapter = albumPhotosAdapter
-        }
+    private fun setupRecyclerView() = binding.recyclerViewUserPosts.run {
+        setHasFixedSize(true)
+        adapter = postsAdapter
     }
 
     private fun observeViewModel() = lifecycleScope.launch {
         viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
             viewModel.uiState.collectLatest { uiState ->
                 when (uiState) {
-                    is AlbumPhotosUiState.Loading -> binding.root.displayedChild = FLIPPER_LOADING
-                    is AlbumPhotosUiState.Success -> {
-                        albumPhotosAdapter.submitList(uiState.photos)
+                    is PostsUiState.Loading -> binding.root.displayedChild = FLIPPER_LOADING
+                    is PostsUiState.Success -> {
+                        postsAdapter.submitList(uiState.posts)
                         binding.root.displayedChild = FLIPPER_SUCCESS
                     }
-                    is AlbumPhotosUiState.Error -> binding.apply {
+                    is PostsUiState.Error -> binding.run {
                         textViewError.text = getString(uiState.message)
                         binding.root.displayedChild = FLIPPER_ERROR
                     }
@@ -80,7 +68,7 @@ class AlbumPhotosFragment : Fragment() {
 
     private fun setupReloadListener() = binding.buttonRetry.run {
         setOnClickListener {
-            viewModel.reloadAlbumPhotos()
+            viewModel.reloadUserPosts()
         }
     }
 

@@ -10,27 +10,32 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import tmidev.apirequest.databinding.FragmentUserAlbumsBinding
+import tmidev.apirequest.databinding.FragmentAlbumsBinding
+import tmidev.apirequest.presentation.common.genericAdapterOf
 
 @AndroidEntryPoint
-class UserAlbumsFragment : Fragment() {
-    private var _binding: FragmentUserAlbumsBinding? = null
+class AlbumsFragment : Fragment() {
+    private var _binding: FragmentAlbumsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: UserAlbumsViewModel by viewModels()
+    private val viewModel: AlbumsViewModel by viewModels()
 
-    private val userAlbumsAdapter: UserAlbumsAdapter by lazy {
-        UserAlbumsAdapter { albumId ->
-            val directions = UserAlbumsFragmentDirections.toAlbumPhotosFragment(albumId = albumId)
-            findNavController().navigate(directions = directions)
+    private val albumsAdapter: ListAdapter<AlbumItem, AlbumsViewHolder> by lazy {
+        genericAdapterOf {
+            AlbumsViewHolder.create(parent = it) { albumId ->
+                val directions =
+                    AlbumsFragmentDirections.toPhotosFragment(albumId = albumId)
+                findNavController().navigate(directions = directions)
+            }
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ) = FragmentUserAlbumsBinding.inflate(
+    ) = FragmentAlbumsBinding.inflate(
         inflater, container, false
     ).apply {
         _binding = this
@@ -45,19 +50,19 @@ class UserAlbumsFragment : Fragment() {
 
     private fun setupRecyclerView() = binding.recyclerViewUserAlbums.run {
         setHasFixedSize(true)
-        adapter = userAlbumsAdapter
+        adapter = albumsAdapter
     }
 
     private fun observeViewModel() = lifecycleScope.launch {
         viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
             viewModel.uiState.collectLatest { uiState ->
                 when (uiState) {
-                    is UserAlbumsUiState.Loading -> binding.root.displayedChild = FLIPPER_LOADING
-                    is UserAlbumsUiState.Success -> {
-                        userAlbumsAdapter.submitList(uiState.albums)
+                    is AlbumsUiState.Loading -> binding.root.displayedChild = FLIPPER_LOADING
+                    is AlbumsUiState.Success -> {
+                        albumsAdapter.submitList(uiState.albums)
                         binding.root.displayedChild = FLIPPER_SUCCESS
                     }
-                    is UserAlbumsUiState.Error -> binding.apply {
+                    is AlbumsUiState.Error -> binding.run {
                         textViewError.text = getString(uiState.message)
                         binding.root.displayedChild = FLIPPER_ERROR
                     }

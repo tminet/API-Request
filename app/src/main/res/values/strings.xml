@@ -2,9 +2,9 @@
     <string name="appName">API Request</string>
 
     <string name="screenTitleUsers">Users</string>
-    <string name="screenTitleUserPosts">Posts</string>
-    <string name="screenTitleUserAlbums">Albums</string>
-    <string name="screenTitleAlbumPhotos">Photos</string>
+    <string name="screenTitlePosts">Posts</string>
+    <string name="screenTitleAlbums">Albums</string>
+    <string name="screenTitlePhotos">Photos</string>
 
     <string name="somethingWentWrong">Something went wrong</string>
 

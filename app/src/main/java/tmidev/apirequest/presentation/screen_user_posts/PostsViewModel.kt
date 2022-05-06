@@ -15,11 +15,11 @@ import tmidev.apirequest.domain.usecase.GetUserPostsUseCase
 import javax.inject.Inject
 
 @HiltViewModel
-class UserPostsViewModel @Inject constructor(
+class PostsViewModel @Inject constructor(
     private val getUserPostsUseCase: GetUserPostsUseCase,
     savedState: SavedStateHandle
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<UserPostsUiState>(UserPostsUiState.Loading)
+    private val _uiState = MutableStateFlow<PostsUiState>(PostsUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
     private val userId = savedState.get<Int>("userId")
@@ -29,15 +29,15 @@ class UserPostsViewModel @Inject constructor(
     }
 
     private fun getUserPosts() = viewModelScope.launch {
-        if (userId == null) _uiState.value = UserPostsUiState.Error(
+        if (userId == null) _uiState.value = PostsUiState.Error(
             message = R.string.somethingWentWrong
         ) else getUserPostsUseCase(userId = userId).collectLatest { resultType ->
             _uiState.value = when (resultType) {
-                is ResultType.Loading -> UserPostsUiState.Loading
-                is ResultType.Success -> UserPostsUiState.Success(
-                    posts = resultType.data
+                is ResultType.Loading -> PostsUiState.Loading
+                is ResultType.Success -> PostsUiState.Success(
+                    posts = resultType.data.toPostsItem()
                 )
-                is ResultType.Error -> UserPostsUiState.Error(
+                is ResultType.Error -> PostsUiState.Error(
                     message = R.string.somethingWentWrong
                 )
             }
@@ -45,7 +45,7 @@ class UserPostsViewModel @Inject constructor(
     }
 
     fun reloadUserPosts() = viewModelScope.launch {
-        _uiState.value = UserPostsUiState.Loading
+        _uiState.value = PostsUiState.Loading
         delay(timeMillis = 1000L)
         getUserPosts()
     }

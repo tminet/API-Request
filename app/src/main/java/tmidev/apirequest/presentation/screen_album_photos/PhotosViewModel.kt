@@ -15,11 +15,11 @@ import tmidev.apirequest.domain.usecase.GetAlbumPhotosUseCase
 import javax.inject.Inject
 
 @HiltViewModel
-class AlbumPhotosViewModel @Inject constructor(
+class PhotosViewModel @Inject constructor(
     private val getAlbumPhotosUseCase: GetAlbumPhotosUseCase,
     savedState: SavedStateHandle
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<AlbumPhotosUiState>(AlbumPhotosUiState.Loading)
+    private val _uiState = MutableStateFlow<PhotosUiState>(PhotosUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
     private val albumId = savedState.get<Int>("albumId")
@@ -29,15 +29,15 @@ class AlbumPhotosViewModel @Inject constructor(
     }
 
     private fun getAlbumPhotos() = viewModelScope.launch {
-        if (albumId == null) _uiState.value = AlbumPhotosUiState.Error(
+        if (albumId == null) _uiState.value = PhotosUiState.Error(
             message = R.string.somethingWentWrong
         ) else getAlbumPhotosUseCase(albumId = albumId).collectLatest { resultType ->
             _uiState.value = when (resultType) {
-                is ResultType.Loading -> AlbumPhotosUiState.Loading
-                is ResultType.Success -> AlbumPhotosUiState.Success(
-                    photos = resultType.data
+                is ResultType.Loading -> PhotosUiState.Loading
+                is ResultType.Success -> PhotosUiState.Success(
+                    photos = resultType.data.toPhotosItem()
                 )
-                is ResultType.Error -> AlbumPhotosUiState.Error(
+                is ResultType.Error -> PhotosUiState.Error(
                     message = R.string.somethingWentWrong
                 )
             }
@@ -45,7 +45,7 @@ class AlbumPhotosViewModel @Inject constructor(
     }
 
     fun reloadAlbumPhotos() = viewModelScope.launch {
-        _uiState.value = AlbumPhotosUiState.Loading
+        _uiState.value = PhotosUiState.Loading
         delay(timeMillis = 1000L)
         getAlbumPhotos()
     }

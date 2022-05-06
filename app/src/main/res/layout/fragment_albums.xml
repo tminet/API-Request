@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.screen_user_albums.UserAlbumsFragment">
+    tools:context=".presentation.screen_user_albums.AlbumsFragment">
 
     <ProgressBar
         android:layout_width="wrap_content"
@@ -19,7 +19,7 @@
         android:orientation="vertical"
         android:paddingVertical="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_user_album" />
+        tools:listitem="@layout/item_album" />
 
     <LinearLayout
         android:layout_width="match_parent"
