@@ -9,6 +9,6 @@ class ImageLoaderImplCoil @Inject constructor() : ImageLoader {
         imageView: ImageView,
         imageUrl: String
     ) {
-        imageView.load(imageUrl)
+        imageView.load(data = imageUrl)
     }
 }

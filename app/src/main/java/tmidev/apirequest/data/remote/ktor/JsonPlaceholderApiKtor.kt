@@ -23,16 +23,16 @@ class JsonPlaceholderApiKtor @Inject constructor(
 
     suspend fun getUserPosts(userId: Int): List<PostResponseKt> = httpClient.get {
         url(urlString = API_URL + API_ROUTE_POSTS)
-        parameter("userId", userId)
+        parameter(key = "userId", userId)
     }.body()
 
     suspend fun getUserAlbums(userId: Int): List<AlbumResponseKt> = httpClient.get {
         url(urlString = API_URL + API_ROUTE_ALBUMS)
-        parameter("userId", userId)
+        parameter(key = "userId", userId)
     }.body()
 
     suspend fun getAlbumPhotos(albumId: Int): List<PhotoResponseKt> = httpClient.get {
         url(urlString = API_URL + API_ROUTE_PHOTOS)
-        parameter("albumId", albumId)
+        parameter(key = "albumId", albumId)
     }.body()
 }
