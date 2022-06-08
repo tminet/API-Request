@@ -12,9 +12,8 @@ import tmidev.apirequest.util.API_ROUTE_PHOTOS
 import tmidev.apirequest.util.API_ROUTE_POSTS
 import tmidev.apirequest.util.API_ROUTE_USERS
 import tmidev.apirequest.util.API_URL
-import javax.inject.Inject
 
-class JsonPlaceholderApiKtor @Inject constructor(
+class JsonPlaceholderApiKtor(
     private val httpClient: HttpClient
 ) {
     suspend fun getUsers(): List<UserResponseKt> = httpClient.get {
