@@ -1,7 +1,7 @@
 buildscript {
     ext {
         gradle_ver = '7.2.1'
-        kotlin_ver = '1.6.21'
+        kotlin_ver = '1.7.0'
         coroutines_ver = '1.6.2'
         hilt_ver = '2.42'
         navigation_ver = '2.4.2'
