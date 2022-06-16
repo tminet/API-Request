@@ -7,11 +7,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import tmidev.apirequest.R
-import tmidev.apirequest.domain.type.ResultType
 import tmidev.apirequest.domain.usecase.GetUserPostsUseCase
+import tmidev.apirequest.util.collectResult
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,17 +30,17 @@ class PostsViewModel @Inject constructor(
     private fun getUserPosts() = viewModelScope.launch {
         if (userId == null) _uiState.value = PostsUiState.Error(
             message = R.string.somethingWentWrong
-        ) else getUserPostsUseCase(userId = userId).collectLatest { resultType ->
-            _uiState.value = when (resultType) {
-                is ResultType.Loading -> PostsUiState.Loading
-                is ResultType.Success -> PostsUiState.Success(
-                    posts = resultType.data.toPostsItem()
-                )
-                is ResultType.Error -> PostsUiState.Error(
-                    message = R.string.somethingWentWrong
-                )
+        ) else getUserPostsUseCase(userId = userId).collectResult(
+            loading = {
+                _uiState.value = PostsUiState.Loading
+            },
+            success = { posts ->
+                _uiState.value = PostsUiState.Success(posts = posts.toPostsItem())
+            },
+            error = {
+                _uiState.value = PostsUiState.Error(message = R.string.somethingWentWrong)
             }
-        }
+        )
     }
 
     fun reloadUserPosts() = viewModelScope.launch {

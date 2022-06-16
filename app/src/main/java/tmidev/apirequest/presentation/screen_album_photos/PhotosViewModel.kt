@@ -7,11 +7,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import tmidev.apirequest.R
-import tmidev.apirequest.domain.type.ResultType
 import tmidev.apirequest.domain.usecase.GetAlbumPhotosUseCase
+import tmidev.apirequest.util.collectResult
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,17 +30,17 @@ class PhotosViewModel @Inject constructor(
     private fun getAlbumPhotos() = viewModelScope.launch {
         if (albumId == null) _uiState.value = PhotosUiState.Error(
             message = R.string.somethingWentWrong
-        ) else getAlbumPhotosUseCase(albumId = albumId).collectLatest { resultType ->
-            _uiState.value = when (resultType) {
-                is ResultType.Loading -> PhotosUiState.Loading
-                is ResultType.Success -> PhotosUiState.Success(
-                    photos = resultType.data.toPhotosItem()
-                )
-                is ResultType.Error -> PhotosUiState.Error(
-                    message = R.string.somethingWentWrong
-                )
+        ) else getAlbumPhotosUseCase(albumId = albumId).collectResult(
+            loading = {
+                _uiState.value = PhotosUiState.Loading
+            },
+            success = { photos ->
+                _uiState.value = PhotosUiState.Success(photos = photos.toPhotosItem())
+            },
+            error = {
+                _uiState.value = PhotosUiState.Error(message = R.string.somethingWentWrong)
             }
-        }
+        )
     }
 
     fun reloadAlbumPhotos() = viewModelScope.launch {
