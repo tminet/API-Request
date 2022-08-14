@@ -6,7 +6,7 @@ buildscript {
         hilt_ver = '2.43.2'
         navigation_ver = '2.5.1'
         retrofit_ver = '2.9.0'
-        ktor_ver = '2.0.3'
+        ktor_ver = '2.1.0'
     }
 }
 
