@@ -10,7 +10,7 @@ plugins {
 android {
     def appId = "tmidev.apirequest"
     def minApi = 21
-    def targetApi = 32
+    def targetApi = 33
     def appVersionCode = 2
     def appVersionName = "1.0.1"
 
