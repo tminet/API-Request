@@ -8,15 +8,21 @@ plugins {
 }
 
 android {
-    namespace 'tmidev.apirequest'
-    compileSdk 32
+    def appId = "tmidev.apirequest"
+    def minApi = 21
+    def targetApi = 33
+    def appVersionCode = 2
+    def appVersionName = "1.0.1"
+
+    namespace appId
+    compileSdk targetApi
 
     defaultConfig {
-        applicationId "tmidev.apirequest"
-        minSdk 21
-        targetSdk 32
-        versionCode 2
-        versionName "1.0.1"
+        applicationId appId
+        minSdk minApi
+        targetSdk targetApi
+        versionCode appVersionCode
+        versionName appVersionName
     }
 
     buildTypes {
@@ -50,13 +56,13 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'com.google.android.material:material:1.7.0'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_ver"
@@ -74,6 +80,6 @@ dependencies {
     implementation "io.ktor:ktor-client-content-negotiation:$ktor_ver"
     implementation "io.ktor:ktor-serialization-kotlinx-json:$ktor_ver"
 
-    implementation 'io.coil-kt:coil:2.1.0'
+    implementation 'io.coil-kt:coil:2.2.2'
 
 }
