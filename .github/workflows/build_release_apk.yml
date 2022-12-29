@@ -33,13 +33,13 @@ jobs:
       # id: permission_to_gradlew_file_step
       # run: chmod +x gradlew
 
-      - name: Build Debug APK
-        id: build_debug_apk_step
+      - name: Build Release APK
+        id: build_release_apk_step
         run: ./gradlew assembleRelease --stacktrace
 
       - name: Upload Artifact
         id: upload_artifact_step
         uses: actions/upload-artifact@v3
         with:
-          name: Debug Artifacts
+          name: Release Artifacts
           path: app/build/outputs/
