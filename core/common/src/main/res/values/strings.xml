@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unableToConnect">Unable to connect</string>
+    <string name="somethingWentWrong">Something went wrong</string>
+
+</resources>

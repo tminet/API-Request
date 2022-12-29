@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="userProfile">User profile</string>
+
+    <string name="name">Name:</string>
+    <string name="username">Username:</string>
+    <string name="email">Email:</string>
+    <string name="phone">Phone:</string>
+    <string name="website">Website:</string>
+
+    <string name="seePosts">See posts</string>
+    <string name="seeAlbums">See albums</string>
+
+</resources>
