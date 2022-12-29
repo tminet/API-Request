@@ -1,61 +1,7 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-        <item name="colorOnPrimary">@color/colorOnPrimary</item>
-
-        <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
-        <item name="colorOnSecondary">@color/colorOnSecondary</item>
-
-        <item name="android:windowBackground">@color/colorBackground</item>
-        <item name="colorOnBackground">@color/colorOnBackground</item>
-
-        <item name="colorSurface">@color/colorSurface</item>
-        <item name="colorOnSurface">@color/colorOnSurface</item>
-
-        <item name="android:statusBarColor">@color/colorPrimary</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
-
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
-
-        <item name="android:fontFamily">@font/quicksand_medium</item>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
-
-    <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
-        <item name="colorOnPrimary">@color/colorOnPrimary</item>
-    </style>
-
-    <style name="TextTitleOnSurface" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/colorOnSurface</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="TextBodyOnSurface" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/colorOnSurface</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">normal</item>
-    </style>
-
-    <style name="TextBodyOnBackground" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/colorOnBackground</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">normal</item>
-    </style>
-
-    <style name="TextCaptionOnSurface" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/colorOnSurface</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="TextErrorOnBackground" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/colorError</item>
-        <item name="android:textSize">22sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
 </resources>

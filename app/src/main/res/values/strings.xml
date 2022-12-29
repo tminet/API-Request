@@ -1,27 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="appName">API Request</string>
-
-    <string name="screenTitleUsers">Users</string>
-    <string name="screenTitlePosts">Posts</string>
-    <string name="screenTitleAlbums">Albums</string>
-    <string name="screenTitlePhotos">Photos</string>
-
-    <string name="somethingWentWrong">Something went wrong</string>
-
-    <string name="tapToRetry">Tap to Retry</string>
-
-    <string name="userId">User ID: %d</string>
-    <string name="email">Email: %s</string>
-    <string name="phone">Phone: %s</string>
-    <string name="website">Website: %s</string>
-    <string name="zipCode">Zip Code: %s</string>
-    <string name="city">City: %s</string>
-    <string name="street">Street: %s</string>
-    <string name="posts">Posts</string>
-    <string name="albums">Albums</string>
-
-    <string name="postId">Post ID: %d</string>
-
-    <string name="albumId">Album ID: %d</string>
 
 </resources>
