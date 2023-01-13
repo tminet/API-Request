@@ -13,7 +13,6 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.androidApiMin.get().toInt()
-        targetSdk = libs.versions.androidApiTarget.get().toInt()
     }
 
     compileOptions {
@@ -32,13 +31,9 @@ android {
         )
     }
 
-    buildFeatures {
-        compose = true
-    }
+    buildFeatures.compose = true
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
-    }
+    composeOptions.kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
 }
 
 dependencies {

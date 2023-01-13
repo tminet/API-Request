@@ -27,7 +27,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tmidev.apirequest.core.design.component.ErrorState
 import tmidev.apirequest.core.design.component.LoadingState
@@ -43,11 +42,7 @@ import tmidev.apirequest.core.model.User
  * @param onNavigateToUserProfile callback with user id to navigate to user profile screen.
  * @param viewModel the [UsersViewModel]. Default is provided by [hiltViewModel].
  */
-@OptIn(
-    ExperimentalMaterial3Api::class,
-    ExperimentalLifecycleComposeApi::class,
-    ExperimentalAnimationApi::class
-)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
 fun UsersScreen(
     modifier: Modifier,

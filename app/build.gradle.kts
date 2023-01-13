@@ -59,19 +59,11 @@ android {
         )
     }
 
-    buildFeatures {
-        compose = true
-    }
+    buildFeatures.compose = true
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
-    }
+    composeOptions.kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
 
-    packagingOptions {
-        resources {
-            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
-        }
-    }
+    packagingOptions.resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
 }
 
 dependencies {
