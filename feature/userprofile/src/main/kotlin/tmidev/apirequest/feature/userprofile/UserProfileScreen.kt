@@ -33,7 +33,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tmidev.apirequest.core.design.component.ErrorState
 import tmidev.apirequest.core.design.component.LoadingState
@@ -51,11 +50,7 @@ import tmidev.apirequest.core.design.R as DesignR
  * @param onNavigateToAlbums callback with user id to navigate to albums screen.
  * @param viewModel the [UserProfileViewModel]. Default is provided by [hiltViewModel].
  */
-@OptIn(
-    ExperimentalMaterial3Api::class,
-    ExperimentalLifecycleComposeApi::class,
-    ExperimentalAnimationApi::class
-)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
 fun UserProfileScreen(
     modifier: Modifier,

@@ -29,7 +29,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import tmidev.apirequest.core.design.component.AppAsyncImage
 import tmidev.apirequest.core.design.component.ErrorState
@@ -46,11 +45,7 @@ import tmidev.apirequest.core.design.R as DesignR
  * @param onNavigateBack callback to navigate back from this screen.
  * @param viewModel the [PhotosViewModel]. Default is provided by [hiltViewModel].
  */
-@OptIn(
-    ExperimentalMaterial3Api::class,
-    ExperimentalLifecycleComposeApi::class,
-    ExperimentalAnimationApi::class
-)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
 fun PhotosScreen(
     modifier: Modifier,
