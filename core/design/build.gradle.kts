@@ -37,5 +37,5 @@ dependencies {
 
     implementation(libs.compose.materialIconsExtended)
 
-    implementation(libs.accompanist.systemUiController)
+    api(libs.accompanist.systemUiController)
 }
