@@ -81,7 +81,8 @@ fun AlbumsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues = innerPadding),
-            targetState = screenState
+            targetState = screenState,
+            label = "albums animated content"
         ) { state ->
             when (state) {
                 is AlbumsScreenState.Loading -> LoadingState(

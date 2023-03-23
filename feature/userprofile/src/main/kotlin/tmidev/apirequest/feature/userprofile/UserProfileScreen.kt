@@ -89,7 +89,8 @@ fun UserProfileScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues = innerPadding),
-            targetState = screenState
+            targetState = screenState,
+            label = "user profile animated content"
         ) { state ->
             when (state) {
                 is UserProfileScreenState.Loading -> LoadingState(

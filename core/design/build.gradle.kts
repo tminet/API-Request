@@ -6,8 +6,6 @@ plugins {
 }
 
 android {
-    val javaVersion = JavaVersion.VERSION_1_8
-
     namespace = libs.versions.appId.get() + ".core.design"
     compileSdk = libs.versions.androidApiTarget.get().toInt()
 
@@ -16,19 +14,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
-    }
-
-    kotlinOptions {
-        val warningsAsErrors: String? by project
-        allWarningsAsErrors = warningsAsErrors.toBoolean()
-
-        jvmTarget = javaVersion.toString()
-
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=kotlin.RequiresOptIn"
-        )
+        sourceCompatibility(libs.versions.java.get())
+        targetCompatibility(libs.versions.java.get())
     }
 
     buildFeatures.compose = true
@@ -37,6 +24,8 @@ android {
 }
 
 dependencies {
+    api(libs.androidx.activityCompose)
+
     api(platform(libs.compose.bom))
     api(libs.compose.animation)
     api(libs.compose.foundation)
@@ -48,5 +37,5 @@ dependencies {
 
     implementation(libs.compose.materialIconsExtended)
 
-    implementation(libs.accompanist.systemuicontroller)
+    api(libs.accompanist.systemUiController)
 }

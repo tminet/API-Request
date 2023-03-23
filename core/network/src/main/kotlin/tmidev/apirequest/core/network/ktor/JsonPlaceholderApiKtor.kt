@@ -1,8 +1,10 @@
 package tmidev.apirequest.core.network.ktor
 
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.request.*
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
+import io.ktor.client.request.parameter
+import io.ktor.client.request.url
 import tmidev.apirequest.core.network.ktor.response.AlbumResponse
 import tmidev.apirequest.core.network.ktor.response.PhotoResponse
 import tmidev.apirequest.core.network.ktor.response.PostResponse
