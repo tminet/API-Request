@@ -81,7 +81,8 @@ fun PostsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues = innerPadding),
-            targetState = screenState
+            targetState = screenState,
+            label = "posts animated content"
         ) { state ->
             when (state) {
                 is PostsScreenState.Loading -> LoadingState(

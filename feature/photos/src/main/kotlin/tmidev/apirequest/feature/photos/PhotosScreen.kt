@@ -81,7 +81,8 @@ fun PhotosScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues = innerPadding),
-            targetState = screenState
+            targetState = screenState,
+            label = "photos animated content"
         ) { state ->
             when (state) {
                 is PhotosScreenState.Loading -> LoadingState(
