@@ -8,8 +8,6 @@ plugins {
 }
 
 android {
-    val javaVersion = JavaVersion.VERSION_1_8
-
     namespace = libs.versions.appId.get() + ".feature.users"
     compileSdk = libs.versions.androidApiTarget.get().toInt()
 
@@ -18,19 +16,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
-    }
-
-    kotlinOptions {
-        val warningsAsErrors: String? by project
-        allWarningsAsErrors = warningsAsErrors.toBoolean()
-
-        jvmTarget = javaVersion.toString()
-
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=kotlin.RequiresOptIn"
-        )
+        sourceCompatibility(libs.versions.java.get())
+        targetCompatibility(libs.versions.java.get())
     }
 
     buildFeatures.compose = true
@@ -44,13 +31,14 @@ dependencies {
     implementation(project(":core:design"))
     implementation(project(":core:domain"))
 
-    implementation(libs.lifecycle.runtime.ktx)
-    implementation(libs.lifecycle.runtime.compose)
-    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.lifecycle.runtimeKtx)
+    implementation(libs.lifecycle.runtimeCompose)
+    implementation(libs.lifecycle.viewmodelCompose)
 
     implementation(libs.coroutines.android)
 
     implementation(libs.hilt.android)
-    implementation(libs.hilt.compose)
-    kapt(libs.hilt.android.compiler)
+    implementation(libs.hilt.extCompose)
+    kapt(libs.hilt.androidCompiler)
+    kapt(libs.hilt.extCompiler)
 }

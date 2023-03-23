@@ -8,8 +8,6 @@ plugins {
 }
 
 android {
-    val javaVersion = JavaVersion.VERSION_1_8
-
     namespace = libs.versions.appId.get() + ".core.data"
     compileSdk = libs.versions.androidApiTarget.get().toInt()
 
@@ -18,19 +16,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
-    }
-
-    kotlinOptions {
-        val warningsAsErrors: String? by project
-        allWarningsAsErrors = warningsAsErrors.toBoolean()
-
-        jvmTarget = javaVersion.toString()
-
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=kotlin.RequiresOptIn"
-        )
+        sourceCompatibility(libs.versions.java.get())
+        targetCompatibility(libs.versions.java.get())
     }
 }
 
@@ -42,5 +29,5 @@ dependencies {
     implementation(libs.coroutines.android)
 
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    kapt(libs.hilt.androidCompiler)
 }

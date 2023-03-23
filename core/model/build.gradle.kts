@@ -4,4 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
 }
 
-dependencies {}
+java {
+    setSourceCompatibility(libs.versions.java.get())
+    setTargetCompatibility(libs.versions.java.get())
+}
