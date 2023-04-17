@@ -22,9 +22,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:model"))
-    implementation(project(":core:common"))
-    implementation(project(":core:data"))
+    implementation(projects.core.model)
+    implementation(projects.core.common)
+    implementation(projects.core.data)
 
     implementation(libs.coroutines.android)
 

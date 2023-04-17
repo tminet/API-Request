@@ -1,15 +1,12 @@
-[versions] # -------------------------------------- versions --------------------------------------
-# app reference
+[versions]
 appId = "tmidev.apirequest"
 androidApiTarget = "33"
 androidApiMin = "21"
-# general
-agp = "7.4.2"
-java = "11"
-kotlin = "1.8.10"
-composeCompiler = "1.4.4"
+agp = "8.0.0"
+java = "17"
+kotlin = "1.8.20"
+composeCompiler = "1.4.5"
 hilt = "2.45"
-# libraries
 androidCore = "1.10.0"
 androidActivity = "1.7.0"
 composeBom = "2023.04.00"
@@ -22,7 +19,7 @@ ktor = "2.2.4"
 retrofit = "2.9.0"
 coil = "2.3.0"
 
-[libraries] # -------------------------------------- libraries --------------------------------------
+[libraries]
 androidx-coreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "androidCore" }
 androidx-activityCompose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidActivity" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -49,7 +46,7 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 retrofit-converterGson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
-[plugins] # -------------------------------------- plugins --------------------------------------
+[plugins]
 android-library = { id = "com.android.library", version.ref = "agp" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

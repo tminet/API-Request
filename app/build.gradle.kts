@@ -58,15 +58,15 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:model"))
-    implementation(project(":core:common"))
-    implementation(project(":core:design"))
+    implementation(projects.core.model)
+    implementation(projects.core.common)
+    implementation(projects.core.design)
 
-    implementation(project(":feature:users"))
-    implementation(project(":feature:userprofile"))
-    implementation(project(":feature:posts"))
-    implementation(project(":feature:albums"))
-    implementation(project(":feature:photos"))
+    implementation(projects.feature.users)
+    implementation(projects.feature.userprofile)
+    implementation(projects.feature.posts)
+    implementation(projects.feature.albums)
+    implementation(projects.feature.photos)
 
     implementation(libs.androidx.coreKtx)
 
