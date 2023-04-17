@@ -26,10 +26,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:model"))
-    implementation(project(":core:common"))
-    implementation(project(":core:design"))
-    implementation(project(":core:domain"))
+    implementation(projects.core.model)
+    implementation(projects.core.common)
+    implementation(projects.core.design)
+    implementation(projects.core.domain)
 
     implementation(libs.lifecycle.runtimeKtx)
     implementation(libs.lifecycle.runtimeCompose)
