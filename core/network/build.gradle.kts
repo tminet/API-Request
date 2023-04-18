@@ -1,5 +1,3 @@
-// Remove once https://github.com/gradle/gradle/issues/22797 is fixed
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
