@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+    buildToolsVersion = libs.versions.buildTools.get()
     namespace = libs.versions.appId.get() + ".feature.users"
     compileSdk = libs.versions.androidApiTarget.get().toInt()
 
@@ -17,6 +18,8 @@ android {
         sourceCompatibility(libs.versions.java.get())
         targetCompatibility(libs.versions.java.get())
     }
+
+    kotlinOptions.jvmTarget = libs.versions.java.get()
 
     buildFeatures.compose = true
 

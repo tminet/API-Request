@@ -9,6 +9,7 @@ android {
     val verCode = 3
     val verName = "2.0.0"
 
+    buildToolsVersion = libs.versions.buildTools.get()
     namespace = libs.versions.appId.get()
     compileSdk = libs.versions.androidApiTarget.get().toInt()
 
@@ -47,6 +48,8 @@ android {
         sourceCompatibility(libs.versions.java.get())
         targetCompatibility(libs.versions.java.get())
     }
+
+    kotlinOptions.jvmTarget = libs.versions.java.get()
 
     buildFeatures.compose = true
 
