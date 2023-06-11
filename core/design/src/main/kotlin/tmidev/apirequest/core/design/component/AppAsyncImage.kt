@@ -41,13 +41,17 @@ fun AppAsyncImage(
     val rememberAsyncImage = rememberAsyncImagePainter(model = model)
     val isImageStateError = rememberAsyncImage.state is AsyncImagePainter.State.Error
 
-    AnimatedContent(targetState = isImageStateError) { isError ->
+    AnimatedContent(
+        targetState = isImageStateError,
+        label = "async_image_animated_content"
+    ) { isError ->
         when (isError) {
             true -> Image(
                 modifier = modifier,
                 imageVector = errorIcon,
                 contentDescription = null
             )
+
             false -> Image(
                 modifier = modifier,
                 painter = rememberAsyncImage,
